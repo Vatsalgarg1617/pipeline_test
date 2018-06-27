@@ -15,7 +15,7 @@ pipeline{
     stage('Testing Stage'){
 
      steps{
-      withMaven(maven : 'Maven'){
+      withMaven(maven : 'default'){
          sh 'cd internal_folder & mvn test'
 
 
@@ -40,7 +40,7 @@ pipeline{
                                                             def rtMaven = Artifactory.newMavenBuild()
                                                             rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
                                                             rtMaven.deployer server: server, releaseRepo: 'vatsal', snapshotRepo: 'vatsal'
-                                                            rtMaven.tool = 'Maven'
+                                                            rtMaven.tool = 'default'
                                                             def buildInfo = rtMaven.run pom: 'internal_folder/pom.xml', goals: 'install'
                                                             server.publishBuildInfo buildInfo
                                                                                           }
