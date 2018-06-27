@@ -33,6 +33,20 @@ pipeline{
     }
 }
 
+                              stage ('Artifactory Deploy'){
+                                             steps{
+                                                            script {
+                                                            def server = Artifactory.server('Jfrog')
+                                                            def rtMaven = Artifactory.newMavenBuild()
+                                                            rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
+                                                            rtMaven.deployer server: server, releaseRepo: 'vatsal', snapshotRepo: 'vatsal'
+                                                            rtMaven.tool = 'Maven'
+                                                            def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'install'
+                                                            server.publishBuildInfo buildInfo
+                                                                                          }
+                                                                           }
+                                                            }
+
 
      stage('Deployment Stage'){
 
