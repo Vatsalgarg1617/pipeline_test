@@ -29,7 +29,7 @@ pipeline{
      steps{
       withMaven(maven : 'Maven'){
 
-         bat 'cd internal_folder & mvn deploy'
+         bat 'cd internal_folder & mvn install'
 
         }
      }
