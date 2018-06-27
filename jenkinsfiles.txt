@@ -20,7 +20,7 @@ pipeline{
      stage('Build'){
 
         steps{
-           bat ' cd internal_folder & mvn install'
+           bat 'cd internal_folder & mvn install'
     }
 
        
