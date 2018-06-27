@@ -41,7 +41,7 @@ pipeline{
                                                             rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
                                                             rtMaven.deployer server: server, releaseRepo: 'vatsal', snapshotRepo: 'vatsal'
                                                             rtMaven.tool = 'Maven'
-                                                            def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'install'
+                                                            def buildInfo = rtMaven.run pom: 'internal_folder/pom.xml', goals: 'install'
                                                             server.publishBuildInfo buildInfo
                                                                                           }
                                                                            }
