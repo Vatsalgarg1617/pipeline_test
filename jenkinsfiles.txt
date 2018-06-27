@@ -15,8 +15,8 @@ pipeline{
     stage('Testing Stage'){
 
      steps{
-      withMaven(maven : 'Maven3.1.1'){
-         bat 'mvn test'
+      withMaven(maven : 'Maven'){
+         bat 'cd internal_folder & mvn test'
         }
      }
    }
@@ -25,8 +25,8 @@ pipeline{
      stage('Deployment Stage'){
 
      steps{
-      withMaven(maven : 'Maven3.1.1'){
-         bat 'mvn deploy'
+      withMaven(maven : 'Maven'){
+         bat 'cd internal_folder & mvn deploy'
         }
      }
    }
