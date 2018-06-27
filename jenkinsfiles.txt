@@ -6,8 +6,8 @@ pipeline{
       stage('Compile Stage'){
 
      steps{
-      withMaven(maven : 'Maven'){
-         bat 'cd internal_folder & mvn clean install'
+      withMaven(maven : 'default'){
+         sh 'cd internal_folder & mvn clean install'
         }
      }
    }
@@ -16,7 +16,7 @@ pipeline{
 
      steps{
       withMaven(maven : 'Maven'){
-         bat 'cd internal_folder & mvn test'
+         sh 'cd internal_folder & mvn test'
 
 
         }
@@ -27,7 +27,7 @@ pipeline{
    stage ('SonarQube Analysis'){
      steps{
      withSonarQubeEnv('sonarqube') {
-    bat 'cd internal_folder & mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
+    sh 'cd internal_folder & mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
 
          }
     }
@@ -36,7 +36,7 @@ pipeline{
                               stage ('Artifactory Deploy'){
                                              steps{
                                                             script {
-                                                            def server = Artifactory.server('JFrog')
+                                                            def server = Artifactory.server('default')
                                                             def rtMaven = Artifactory.newMavenBuild()
                                                             rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
                                                             rtMaven.deployer server: server, releaseRepo: 'vatsal', snapshotRepo: 'vatsal'
@@ -48,16 +48,7 @@ pipeline{
                                                             }
 
 
-     stage('Deployment Stage'){
-
-     steps{
-      withMaven(maven : 'Maven'){
-
-         bat 'cd internal_folder & mvn install'
-
-        }
-     }
-   }
+     
 
            
    }
