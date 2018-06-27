@@ -36,7 +36,7 @@ pipeline{
                               stage ('Artifactory Deploy'){
                                              steps{
                                                             script {
-                                                            def server = Artifactory.server('Jfrog')
+                                                            def server = Artifactory.server('JFrog')
                                                             def rtMaven = Artifactory.newMavenBuild()
                                                             rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
                                                             rtMaven.deployer server: server, releaseRepo: 'vatsal', snapshotRepo: 'vatsal'
